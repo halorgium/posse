@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100808152912) do
+ActiveRecord::Schema.define(:version => 20100808220933) do
 
   create_table "branches", :force => true do |t|
     t.string   "name"
@@ -47,6 +47,21 @@ ActiveRecord::Schema.define(:version => 20100808152912) do
     t.string   "message"
     t.string   "author"
     t.datetime "commited_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "deploys", :force => true do |t|
+    t.integer  "build_id"
+    t.integer  "cluster_id"
+    t.string   "user"
+    t.string   "source"
+    t.string   "callback"
+    t.boolean  "force"
+    t.datetime "started_at"
+    t.datetime "completed_at"
+    t.boolean  "status"
+    t.string   "log_url"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

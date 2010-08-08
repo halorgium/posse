@@ -3,9 +3,14 @@ class Cluster < ActiveRecord::Base
   validates_uniqueness_of :name, :scope => :project_id
 
   belongs_to :project
+  has_many :deploys
 
   def current_status
-    "running"
+    current_deploy ? current_deploy.status : "unknown"
+  end
+
+  def current_deploy
+    deploys.order(:updated_at).reverse_order.first
   end
 
   def default_branch

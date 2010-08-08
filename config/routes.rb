@@ -11,5 +11,9 @@ Posse::Application.routes.draw do
     resources :clusters, :only => [:index, :new, :create]
   end
 
-  resources :clusters, :only => [:show]
+  resources :clusters, :only => [:show] do
+    resources :deploys, :only => []
+  end
+
+  resources :deploys, :only => []
 end

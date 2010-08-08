@@ -1,0 +1,25 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  build_id: 1
+  cluster_id: 1
+  user: MyString
+  source: MyString
+  callback: MyString
+  force: false
+  started_at: 2010-08-08 15:09:33
+  completed_at: 2010-08-08 15:09:33
+  status: false
+  log_url: MyString
+
+two:
+  build_id: 1
+  cluster_id: 1
+  user: MyString
+  source: MyString
+  callback: MyString
+  force: false
+  started_at: 2010-08-08 15:09:33
+  completed_at: 2010-08-08 15:09:33
+  status: false
+  log_url: MyString

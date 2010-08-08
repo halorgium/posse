@@ -1,6 +1,7 @@
 class Build < ActiveRecord::Base
   belongs_to :commit
   belongs_to :branch
+  has_many :deploys
 
   def run
     Building.enqueue(id)
