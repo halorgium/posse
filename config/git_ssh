@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 unset SSH_AUTH_SOCK
-ssh -F /dev/null -i ${POSSE_GIT_SSHKEY} $@
+ssh -F /dev/null -o StrictHostKeyChecking=no -i ${POSSE_GIT_SSHKEY} $@
