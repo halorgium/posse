@@ -63,6 +63,10 @@ Exception
     commit.identifier
   end
 
+  def short_identifier
+    commit.short_identifier
+  end
+
   def branch_name
     branch.name
   end

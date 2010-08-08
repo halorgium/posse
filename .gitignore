@@ -2,5 +2,6 @@
 bin
 db/*.sqlite3
 config/database.yml
+config/git.id_rsa*
 log/*.log
 tmp/**/*

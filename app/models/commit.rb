@@ -3,4 +3,8 @@ class Commit < ActiveRecord::Base
 
   belongs_to :project
   has_many :builds
+
+  def short_identifier
+    identifier[0..6]
+  end
 end

@@ -1,9 +1,12 @@
-- content_for :title, "#{@build.project.name}/#{@build.branch_name}@#{@build.identifier}"
+- content_for :title do
+  = link_to @build.project.name, project_path(@build.project)
+  \/
+  = @build.branch_name
+  @
+  = @build.short_identifier
 
 %h2= yield :title
 
-= link_to "New Project", new_project_path
+#status= @build.status
 
-- @projects.each do |project|
-  = link_to project.name, project_path(project)
-
+%pre= @build.output
