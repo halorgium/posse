@@ -31,12 +31,8 @@ module Irc
       data["source"]
     end
 
-    def callback
-      data["callback"]
-    end
-
     def valid?
-      body && user && source && callback
+      body && user && source
     end
 
     def data

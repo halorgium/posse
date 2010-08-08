@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100808220933) do
+ActiveRecord::Schema.define(:version => 20100808232011) do
 
   create_table "branches", :force => true do |t|
     t.string   "name"
@@ -56,7 +56,6 @@ ActiveRecord::Schema.define(:version => 20100808220933) do
     t.integer  "cluster_id"
     t.string   "user"
     t.string   "source"
-    t.string   "callback"
     t.boolean  "force"
     t.datetime "started_at"
     t.datetime "completed_at"
