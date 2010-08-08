@@ -1,4 +1,4 @@
-filename = Rails.root + '/config/resque.yml'
+filename = Rails.root.join('config/resque.yml')
 if File.exists?(filename)
   config = YAML.load_file(filename)
   Resque.redis = config[Rails.env]
