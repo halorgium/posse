@@ -11,6 +11,13 @@ map "/github" do
   run app
 end
 
+map "/irc" do
+  app = Irc::Receiver.new do |payload|
+    Message.handle(payload)
+  end
+  run app
+end
+
 map "/resque" do
   run Resque::Server
 end
