@@ -6,6 +6,10 @@ class Cluster < ActiveRecord::Base
   belongs_to :project
   has_many :deploys
 
+  def self.deploy(request)
+    Rails.logger.info("Got deploy request: #{request.inspect}")
+  end
+
   def current_status
     current_deploy ? current_deploy.status : "unknown"
   end
