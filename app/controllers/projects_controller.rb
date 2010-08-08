@@ -20,6 +20,7 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.by_param(params[:id])
+    @builds = @project.latest_builds
     render
   end
 end

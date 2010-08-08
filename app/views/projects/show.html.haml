@@ -1,3 +1,8 @@
 - content_for :title, "#{@project.name} Project"
 
 %h3= yield :title
+
+%h4 Latest Builds
+
+- @builds.each do |build|
+  == #{build.identifier} on #{build.branch_name}: #{build.status}

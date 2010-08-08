@@ -15,6 +15,10 @@ class Project < ActiveRecord::Base
   has_many :branches
   has_many :commits
 
+  def latest_builds
+    Build.order(:created_at).reverse_order.where(:branch_id => branches).limit(10)
+  end
+
   def build(payload)
     unless branch = branches.where(:name => payload.branch).first
       branch = branches.new(:name => payload.branch)
