@@ -8,6 +8,8 @@ gem 'open4'
 gem 'unicorn'
 gem 'resque', :require => ['resque', 'resque/server']
 
+gem 'hoptoad_notifier'
+
 gem 'pg'
 
 group :development do

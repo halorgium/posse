@@ -2,6 +2,8 @@
 
 require ::File.expand_path('../config/environment',  __FILE__)
 
+use HoptoadNotifier::Rack
+
 map "/github" do
   app = Github::PostReceive.new do |payload|
     Project.handle(payload)
