@@ -9,6 +9,10 @@ map "/github" do
   run app
 end
 
+map "/resque" do
+  run Resque::Server
+end
+
 map "/" do
   run Posse::Application
 end

@@ -5,6 +5,7 @@ gem 'haml'
 gem 'json'
 
 gem 'unicorn'
+gem 'resque', :require => ['resque', 'resque/server']
 
 gem 'pg'
 
