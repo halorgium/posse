@@ -37,6 +37,10 @@ class Project < ActiveRecord::Base
     branch.build(commit)
   end
 
+  def build_command
+    "script/ci"
+  end
+
   def to_param
     name
   end

@@ -40,3 +40,6 @@ module Posse
     config.filter_parameters += [:password]
   end
 end
+
+$:.unshift Rails.root.join('lib')
+require 'posse/unsafe_exceptions'

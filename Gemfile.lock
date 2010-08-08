@@ -51,6 +51,7 @@ GEM
       daemons (>= 1.0.3)
       fastthread (>= 1.0.1)
       gem_plugin (>= 0.2.3)
+    open4 (1.0.1)
     pg (0.9.0)
     polyglot (0.3.1)
     rack (1.2.1)
@@ -98,6 +99,7 @@ DEPENDENCIES
   haml
   json
   mongrel
+  open4
   pg
   rails (= 3.0.0.rc)
   resque
