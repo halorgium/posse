@@ -7,4 +7,20 @@
     = csrf_meta_tag
 
   %body
-    = yield
+    #header
+      %h1 Posse
+      - if content_for?(:title)
+        %h2= yield :title
+
+    #menu
+      %ul
+        %li= link_to "Projects", projects_path
+
+    #content
+      #colOne
+        = yield
+
+      .clear{ :style => "clear: both;" } &nbsp;
+
+    #footer
+      %p Enforce, Obey
