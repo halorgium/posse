@@ -1,6 +1,7 @@
 class Cluster < ActiveRecord::Base
   validates_presence_of :name, :cloud_name
   validates_uniqueness_of :name, :scope => :project_id
+  validates_uniqueness_of :irc_name
 
   belongs_to :project
   has_many :deploys
