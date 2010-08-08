@@ -46,7 +46,6 @@ class Checkout
       raise Error.new(status.exitstatus, cmd, self)
     end
 
-
     true
   end
 end
