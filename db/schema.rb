@@ -10,11 +10,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100808074253) do
+ActiveRecord::Schema.define(:version => 20100808090538) do
 
   create_table "branches", :force => true do |t|
     t.string   "name"
     t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "commits", :force => true do |t|
+    t.integer  "project_id"
+    t.string   "identifier"
+    t.string   "message"
+    t.string   "author"
+    t.datetime "commited_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

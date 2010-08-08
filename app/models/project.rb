@@ -13,6 +13,7 @@ class Project < ActiveRecord::Base
   validates_uniqueness_of :name
 
   has_many :branches
+  has_many :commits
 
   def build(payload)
     unless branch = branches.where(:name => payload.branch).first
@@ -20,7 +21,16 @@ class Project < ActiveRecord::Base
       branch.save!
     end
 
-    branch.build(payload)
+    head = payload.head
+    unless commit = commits.where(:identifier => head.identifier).first
+      commit = commits.new(:identifier => head.identifier)
+    end
+    commit.commited_at = head.commited_at
+    commit.message     = head.message
+    commit.author      = head.author
+    commit.save!
+
+    branch.build(commit)
   end
 
   def to_param

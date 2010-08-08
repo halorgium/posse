@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  project_id: 1
+  identifier: MyString
+  message: MyString
+  author: MyString
+  commited_at: 
+
+two:
+  project_id: 1
+  identifier: MyString
+  message: MyString
+  author: MyString
+  commited_at: 
