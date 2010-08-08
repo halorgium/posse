@@ -1,4 +1,6 @@
 Posse::Application.routes.draw do
+  resources :builds
+
   resources :commits
 
   resources :branches

@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  commit_id: 1
+  branch_id: 1
+  exit_status: 1
+  output: MyText
+  started_at: 2010-08-08 02:28:34
+  completed_at: 2010-08-08 02:28:34
+
+two:
+  commit_id: 1
+  branch_id: 1
+  exit_status: 1
+  output: MyText
+  started_at: 2010-08-08 02:28:34
+  completed_at: 2010-08-08 02:28:34

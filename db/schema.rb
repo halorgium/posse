@@ -10,11 +10,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100808090538) do
+ActiveRecord::Schema.define(:version => 20100808092834) do
 
   create_table "branches", :force => true do |t|
     t.string   "name"
     t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "builds", :force => true do |t|
+    t.integer  "commit_id"
+    t.integer  "branch_id"
+    t.integer  "exit_status"
+    t.text     "output"
+    t.datetime "started_at"
+    t.datetime "completed_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
