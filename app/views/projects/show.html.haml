@@ -5,5 +5,13 @@
 %h4 Latest Builds
 
 - @builds.each do |build|
-  = link_to build.identifier, build_path(build)
-  == on #{build.branch_name}: #{build.status}
+  = link_to build.identifier, build
+  on
+  = link_to build.branch_name, build.branch
+  == (#{build.status})
+
+%h4 Latest Branches
+
+- @branches.each do |branch|
+  = link_to branch.name, branch
+  == (#{branch.current_status})

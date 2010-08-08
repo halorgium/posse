@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100808092834) do
+ActiveRecord::Schema.define(:version => 20100808152912) do
 
   create_table "branches", :force => true do |t|
     t.string   "name"
@@ -26,6 +26,17 @@ ActiveRecord::Schema.define(:version => 20100808092834) do
     t.text     "output"
     t.datetime "started_at"
     t.datetime "completed_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "clusters", :force => true do |t|
+    t.integer  "project_id"
+    t.string   "name"
+    t.string   "cloud_name"
+    t.string   "data_url"
+    t.string   "default_branch"
+    t.string   "branch_restriction"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

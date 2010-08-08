@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  project_id: 1
+  name: MyString
+  cloud_name: MyString
+  data_url: MyString
+  default_branch: MyString
+  branch_restriction: MyString
+
+two:
+  project_id: 1
+  name: MyString
+  cloud_name: MyString
+  data_url: MyString
+  default_branch: MyString
+  branch_restriction: MyString

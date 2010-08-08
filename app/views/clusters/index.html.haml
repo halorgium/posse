@@ -1,0 +1,10 @@
+- content_for :title do
+  = link_to @cluster.project.name, @cluster.project
+  on
+  = link_to @cluster.name, @cluster
+
+%h2= yield :title
+
+%h3 Deploys
+
+\...

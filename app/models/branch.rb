@@ -9,4 +9,12 @@ class Branch < ActiveRecord::Base
     build.save!
     build.run
   end
+
+  def current_status
+    current_build ? current_build.status : "idle"
+  end
+
+  def current_build
+    builds.order(:updated_at).reverse_order.first
+  end
 end
