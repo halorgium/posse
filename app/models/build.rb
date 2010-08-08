@@ -3,7 +3,7 @@ class Build < ActiveRecord::Base
   belongs_to :branch
 
   def run
-    Builder.enqueue(id)
+    Building.enqueue(id)
   end
 
   def run!
