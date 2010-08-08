@@ -1,1 +1,6 @@
 - content_for :title, "Projects"
+
+= link_to "New Project", new_project_path
+
+- @projects.each do |project|
+  = link_to project.name, project_path(project)

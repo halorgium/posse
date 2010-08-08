@@ -1,0 +1,15 @@
+- content_for :title, "New Project"
+
+%h3 New Project
+
+- form_for @project do |f|
+  .field
+    = f.label :name, "Name"
+    = f.text_field :name
+
+  .field
+    = f.label :git_uri, "Git URI"
+    = f.text_field :git_uri
+
+  = submit_tag "Create"
+
