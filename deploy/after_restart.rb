@@ -1,3 +1,3 @@
 on_utilities "resque" do
-  sudo "god signal resque QUIT"
+  sudo "god signal resque-#{app} QUIT"
 end
