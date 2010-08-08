@@ -20,6 +20,7 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.by_param(params[:id])
+    @clusters = @project.clusters
     @branches = @project.latest_branches
     @builds = @project.latest_builds
     render

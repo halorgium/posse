@@ -1,0 +1,16 @@
+- content_for :title do
+  New Cluster for
+  = link_to @cluster.project.name, @cluster.project
+
+%h2= yield :title
+
+- form_for [@project, @cluster] do |f|
+  .field
+    = f.label :name, "Name"
+    = f.text_field :name
+
+  .field
+    = f.label :cloud_name, "Name on Cloud"
+    = f.text_field :cloud_name
+
+  = submit_tag "Create"
