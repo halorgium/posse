@@ -4,13 +4,32 @@
 
 %h4 Latest Builds
 
+- unless @builds.any?
+  No Builds
+
 - @builds.each do |build|
-  = link_to build.identifier, build
+  = link_to build.short_identifier, build
   on
   = link_to build.branch_name, build.branch
   == (#{build.status})
 
+%h4 Latest Deploys
+
+- unless @deploys.any?
+  No Deploys
+
+- @deploys.each do |deploy|
+  = link_to deploy.build.short_identifier, deploy.build
+  on
+  = link_to deploy.build.branch_name, deploy.build.branch
+  to
+  = link_to deploy.cluster.name, deploy.cluster
+  == (#{deploy.status})
+
 %h4 Latest Branches
+
+- unless @branches.any?
+  No Branches
 
 - @branches.each do |branch|
   = link_to branch.name, branch
@@ -18,9 +37,11 @@
 
 %h4 Clusters
 
-- if @clusters.any?
-  - @clusters.each do |cluster|
-    = link_to cluster.name, cluster
-    == (#{cluster.current_status})
+- unless @clusters.any?
+  No Clusters
+
+- @clusters.each do |cluster|
+  = link_to cluster.name, cluster
+  == (#{cluster.current_status})
 
 = link_to "Add Cluster", [:new, @project, :cluster]

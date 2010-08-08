@@ -23,6 +23,7 @@ class ProjectsController < ApplicationController
     @clusters = @project.clusters
     @branches = @project.latest_branches
     @builds = @project.latest_builds
+    @deploys = @project.latest_deploys
     render
   end
 end

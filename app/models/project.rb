@@ -17,11 +17,15 @@ class Project < ActiveRecord::Base
   has_many :clusters
 
   def latest_branches
-    branches.order(:created_at).reverse_order.limit(10)
+    branches.order(:updated_at).reverse_order.limit(10)
   end
 
   def latest_builds
-    Build.order(:created_at).reverse_order.where(:branch_id => branches).limit(10)
+    Build.order(:updated_at).reverse_order.where(:branch_id => branches).limit(10)
+  end
+
+  def latest_deploys
+    Deploy.order(:updated_at).reverse_order.where(:build_id => latest_builds).limit(10)
   end
 
   def build(payload)
