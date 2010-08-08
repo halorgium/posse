@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+unset SSH_AUTH_SOCK
+ssh -F /dev/null -i ${POSSE_GIT_SSHKEY} $@

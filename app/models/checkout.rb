@@ -32,6 +32,8 @@ class Checkout
 
     output << "Running #{cmd.inspect}\n"
 
+    ENV["POSSE_GIT_SSHKEY"] = Rails.root.join("config/git.id_rsa")
+    ENV["GIT_SSH"]          = Rails.root.join("config/git_ssh")
     status = Open4.spawn(
       "(#{cmd} 2>&1)",
       :dir   => dir,
