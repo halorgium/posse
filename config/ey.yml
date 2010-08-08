@@ -1,0 +1,4 @@
+---
+environments:
+  posse:
+    migration_command: bundle exec rake db:migrate
