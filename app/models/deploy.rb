@@ -41,8 +41,10 @@ Exception
     paste.save
     update_attributes!(:log_url => paste.url)
     "log @ #{log_url}"
-  rescue Exception => e
-    "failed to upload log: #{e.class}: #{e.message}"
+  rescue Exception => exception
+    Posse.raise_if_unsafe(exception)
+
+    "failed to upload log: #{exception.class}: #{exception.message}"
   end
 
   def dir
