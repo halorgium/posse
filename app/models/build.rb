@@ -1,6 +1,6 @@
 class Build < ActiveRecord::Base
   include Rails.application.routes.url_helpers
-  default_url_options[:host] = "posse.halorgium.net"
+  default_url_options[:host] = "posse.spork.in"
 
   belongs_to :commit
   belongs_to :branch

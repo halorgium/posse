@@ -1,6 +1,6 @@
 class Deploy < ActiveRecord::Base
   include Rails.application.routes.url_helpers
-  default_url_options[:host] = "posse.halorgium.net"
+  default_url_options[:host] = "posse.spork.in"
 
   belongs_to :cluster
   belongs_to :build
