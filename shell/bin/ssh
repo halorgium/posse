@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+/usr/bin/ssh -F ${POSSE_SSH_CONFIG} $@
