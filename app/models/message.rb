@@ -17,10 +17,10 @@ class Message
   def handle
     Rails.logger.info "Got irc: #{payload.inspect}"
     case payload.body
-    when /^(?:ship|deploy) (\w+)(?: ([-\w_]+))?$/
+    when /^(?:ship|deploy) ([-\w_]+)(?: ([-\w_]+))?$/
       request = DeployRequest.new($1, $2, false, user, source)
       Cluster.deploy(request)
-    when /^(?:force) (\w+)(?: ([-\w_]+))?$/
+    when /^(?:force) ([-\w_]+)(?: ([-\w_]+))?$/
       request = DeployRequest.new($1, $2, true, user, source)
       Cluster.deploy(request)
     when /^check (\w+)$/
