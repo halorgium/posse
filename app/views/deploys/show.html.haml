@@ -3,7 +3,7 @@
   \/
   = @deploy.branch_name
   @
-  = @deploy.short_identifier
+  = link_to @deploy.short_identifier, @deploy.build
   to
   = link_to @deploy.cluster_name, @deploy.cluster
 
