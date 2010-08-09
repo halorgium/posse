@@ -3,6 +3,23 @@ class Build < ActiveRecord::Base
   belongs_to :branch
   has_many :deploys
 
+  def deploy(request, cluster)
+    if cluster.important? && successfully_deployed?
+      request.reply("#{name} already deployed #{short_identifier}")
+    else
+      deploy = deploys.new(:cluster_id => cluster, :user => request.user, :source => request.source, :force => request.force)
+      if deploy.save
+        deploy.run
+      else
+        raise "Invalid deploy: #{deploy.errors.inspect}"
+      end
+    end
+  end
+
+  def successfully_deployed?
+    deploys.where(:cluster_id => cluster, :status => true).any?
+  end
+
   def run
     Building.enqueue(id)
   end

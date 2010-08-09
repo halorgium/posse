@@ -33,6 +33,10 @@ class Cluster < ActiveRecord::Base
     end
   end
 
+  def important?
+    %w[staging production].include?(name)
+  end
+
   def allows_user?(user)
     %w[sr halorgium atmos benburkert martinemde larrytheliquid smerritt adelcambre geemus].include?(user)
   end
