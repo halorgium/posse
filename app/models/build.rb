@@ -79,6 +79,10 @@ Exception
     @checkout ||= Checkout.new(project.git_uri, branch_name, identifier, dir)
   end
 
+  def completed?
+    completed_at
+  end
+
   def success?
     exit_status == 0
   end
