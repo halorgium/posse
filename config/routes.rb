@@ -15,5 +15,5 @@ Posse::Application.routes.draw do
     resources :deploys, :only => []
   end
 
-  resources :deploys, :only => []
+  resources :deploys, :only => [:show]
 end

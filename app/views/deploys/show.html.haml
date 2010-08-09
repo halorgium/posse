@@ -1,0 +1,14 @@
+- content_for :title do
+  = link_to @deploy.project_name, project_path(@deploy.project)
+  \/
+  = @deploy.branch_name
+  @
+  = @deploy.short_identifier
+  to
+  = link_to @deploy.cluster_name, @deploy.cluster
+
+%h2= yield :title
+
+#status= @deploy.status
+
+= link_to "Deploy output", @deploy.log_url

@@ -21,6 +21,8 @@
 
 - @deploys.each do |deploy|
   %div[deploy]
+    = link_to time_ago_in_words(deploy.updated_at), deploy
+    -
     = link_to deploy.build.short_identifier, deploy.build
     on
     = link_to deploy.build.branch_name, deploy.build.branch
