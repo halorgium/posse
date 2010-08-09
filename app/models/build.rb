@@ -7,7 +7,7 @@ class Build < ActiveRecord::Base
   has_many :deploys
 
   def deploy(request, cluster)
-    if cluster.important? && successfully_deployed?
+    if cluster.important? && successfully_deployed_to?(cluster)
       request.reply("#{name} already deployed #{short_identifier}")
     else
       deploy = deploys.new(:cluster_id => cluster, :user => request.user, :source => request.source, :force => request.force)
@@ -19,7 +19,7 @@ class Build < ActiveRecord::Base
     end
   end
 
-  def successfully_deployed?
+  def successfully_deployed_to?(cluster)
     deploys.where(:cluster_id => cluster, :status => true).any?
   end
 
