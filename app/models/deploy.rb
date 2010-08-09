@@ -6,7 +6,7 @@ class Deploy < ActiveRecord::Base
   belongs_to :build
 
   def run
-    request.reply("#{project_name} (#{branch_name}@#{short_identifier}) to #{cluster_name}: Deploy #{status}")
+    request.reply("#{project_name} (#{branch_name}@#{short_identifier}) to #{cluster_name}: Deploy #{status}. #{url}")
     Deploying.enqueue(id)
   end
 

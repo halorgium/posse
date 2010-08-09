@@ -1,4 +1,7 @@
 class Build < ActiveRecord::Base
+  include Rails.application.routes.url_helpers
+  default_url_options[:host] = "posse.halorgium.net"
+
   belongs_to :commit
   belongs_to :branch
   has_many :deploys
@@ -47,7 +50,11 @@ Exception
 
   def completed(exit_status, output)
     update_attributes!(:completed_at => DateTime.now, :exit_status => exit_status, :output => output)
-    Message.say("#minion-", "#{project_name} (#{branch_name}): #{human_status}")
+    Message.say("#minion-", "#{project_name} (#{branch_name}): #{human_status}. #{url}")
+  end
+
+  def url
+    url_for(self)
   end
 
   def dir
