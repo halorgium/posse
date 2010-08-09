@@ -14,7 +14,7 @@ class Deploy < ActiveRecord::Base
     checkout.setup
     checkout.run("#{project.deploy_command} #{cluster.cloud_name.inspect}")
 
-    completed(true)
+    completed(0)
   rescue Exception => exception
     Posse.raise_if_unsafe(exception)
 
@@ -25,13 +25,13 @@ Exception
 #{exception.class}: #{exception.message}
 #{exception.backtrace.join("\n")}
     EOT
-    completed(false)
+    completed(status)
   end
 
-  def completed(status)
+  def completed(exit_status)
     log_message = upload_log
 
-    update_attributes!(:completed_at => DateTime.now, :status => status)
+    update_attributes!(:completed_at => DateTime.now, :exit_status => exit_status)
     request.reply("#{project_name} (#{branch_name}@#{short_identifier}) to #{cluster_name}: Deploy #{status}. #{log_message}")
   end
 
@@ -63,6 +63,10 @@ Exception
     completed_at
   end
 
+  def success?
+    exit_status == 0
+  end
+
   def succeeded?
     status == "succeeded"
   end
@@ -70,7 +74,7 @@ Exception
   def status
     if started_at
       if completed_at
-        if status?
+        if success?
           "succeeded"
         else
           "failed"
