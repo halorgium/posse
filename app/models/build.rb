@@ -47,6 +47,7 @@ Exception
 
   def completed(exit_status, output)
     update_attributes!(:completed_at => DateTime.now, :exit_status => exit_status, :output => output)
+    Message.say("#minion-", "#{project_name} (#{branch_name}): #{human_status}")
   end
 
   def dir
@@ -63,6 +64,16 @@ Exception
 
   def succeeded?
     status == "succeeded"
+  end
+
+  def human_status
+    if succeeded?
+      "Built #{short_identifier} successfully"
+    elsif failed?
+      "Built #{short_identifier} and failed"
+    else
+      "Unknown status: #{short_identifier}"
+    end
   end
 
   def status
@@ -95,5 +106,9 @@ Exception
 
   def project
     branch.project
+  end
+
+  def project_name
+    project.name
   end
 end
