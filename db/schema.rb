@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100809013746) do
+ActiveRecord::Schema.define(:version => 20100809041630) do
 
   create_table "branches", :force => true do |t|
     t.string   "name"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(:version => 20100809013746) do
     t.datetime "completed_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "log_url"
   end
 
   create_table "clusters", :force => true do |t|
