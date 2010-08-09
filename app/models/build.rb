@@ -44,6 +44,10 @@ Exception
     exit_status == 0
   end
 
+  def succeeded?
+    status == "succeeded"
+  end
+
   def status
     if started_at
       if completed_at
