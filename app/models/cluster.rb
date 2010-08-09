@@ -8,6 +8,41 @@ class Cluster < ActiveRecord::Base
 
   def self.deploy(request)
     Rails.logger.info("Got deploy request: #{request.inspect}")
+    if cluster = where(:irc_name => request.cluster).first
+      cluster.deploy(request)
+    else
+      request.reply("unknown env: #{request.cluster}")
+    end
+  end
+
+  def deploy(request)
+    if allows_user?(request.user)
+      unless current_deploy
+        request.branch ||= default_branch
+
+        if allows_branch?(request.branch)
+          project.deploy(request, self)
+        else
+          request.reply("Branch #{request.branch} disallowed for #{irc_name.inspect}")
+        end
+      else
+        request.reply("already deploying #{irc_name}: requested by #{current_deploy.user} in #{current_deploy.source} at #{current_deploy.created_at}")
+      end
+    else
+      request.reply("not allowed to ship #{irc_name}")
+    end
+  end
+
+  def allows_user?(user)
+    %w[sr halorgium atmos benburkert martinemde larrytheliquid smerritt adelcambre geemus].include?(user)
+  end
+
+  def allows_branch?(branch)
+    branch_regexp ? branch_regexp =~ branch : true
+  end
+
+  def branch_regexp
+    branch_restriction && Regexp.new(branch_restriction)
   end
 
   def current_status

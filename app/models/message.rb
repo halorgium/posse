@@ -1,5 +1,9 @@
 class Message
-  class DeployRequest < Struct.new(:cluster, :branch, :force, :user, :source); end
+  class DeployRequest < Struct.new(:cluster, :branch, :force, :user, :source)
+    def reply(body)
+      Message.say(source, "#{user}, #{body}")
+    end
+  end
 
   def self.handle(payload)
     new(payload).handle

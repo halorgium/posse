@@ -16,6 +16,10 @@ class Project < ActiveRecord::Base
   has_many :commits
   has_many :clusters
 
+  def deploy(request, cluster)
+    Rails.logger.info("Deploying #{request.inspect} to #{cluster.inspect}")
+  end
+
   def latest_branches
     branches.order(:updated_at).reverse_order.limit(10)
   end
