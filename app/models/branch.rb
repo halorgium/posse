@@ -5,7 +5,7 @@ class Branch < ActiveRecord::Base
   has_many :builds
 
   def build(commit)
-    build = builds.new(:commit_id => commit.id)
+    build = builds.new(:commit => commit)
     build.save!
     build.run
   end

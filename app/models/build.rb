@@ -10,7 +10,7 @@ class Build < ActiveRecord::Base
     if cluster.important? && successfully_deployed_to?(cluster)
       request.reply("#{name} already deployed #{short_identifier}")
     else
-      deploy = deploys.new(:cluster_id => cluster, :user => request.user, :source => request.source, :force => request.force)
+      deploy = deploys.new(:cluster => cluster, :user => request.user, :source => request.source, :force => request.force)
       if deploy.save
         deploy.run
       else
