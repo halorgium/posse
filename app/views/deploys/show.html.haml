@@ -11,5 +11,5 @@
 
 #status= @deploy.status
 
-- @deploy.completed?
+- if @deploy.completed?
   = link_to "Deploy output", @deploy.log_url
