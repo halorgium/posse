@@ -5,6 +5,10 @@ class Deploy < ActiveRecord::Base
   belongs_to :cluster
   belongs_to :build
 
+  def self.successful
+    where(:exit_status => 0)
+  end
+
   def run
     request.reply("#{project_name} (#{branch_name}@#{short_identifier}) to #{cluster_name}: Deploy #{status}. #{url}")
     Deploying.enqueue(id)

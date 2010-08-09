@@ -20,7 +20,7 @@ class Build < ActiveRecord::Base
   end
 
   def successfully_deployed_to?(cluster)
-    deploys.where(:cluster_id => cluster, :status => true).any?
+    deploys.successful.where(:cluster_id => cluster).any?
   end
 
   def run
