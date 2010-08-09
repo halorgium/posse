@@ -4,7 +4,7 @@ class Deploy < ActiveRecord::Base
 
   def run
     request.reply("#{project_name} (#{branch_name}@#{short_identifier}) to #{cluster_name}: Deploy #{status}")
-    run!
+    Deploying.enqueue(id)
   end
 
   def run!
