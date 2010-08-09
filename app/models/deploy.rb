@@ -14,7 +14,7 @@ class Deploy < ActiveRecord::Base
     update_attributes!(:started_at => DateTime.now)
     Rails.logger.info "Deploying #{identifier} on #{branch_name} for #{project_name} to #{cluster_name}"
 
-    path = Rails.root.join("shell/bin") + ":" + ENV["PATH"]
+    path = "#{Rails.root.join("shell/bin")}:#{ENV["PATH"]}"
     checkout.setup
     checkout.run("env PATH='#{path}' #{project.deploy_command} #{cluster.cloud_name.inspect}")
 
