@@ -38,9 +38,9 @@ class Checkout
     ENV["GIT_SSH"]          = Rails.root.join("shell/git_ssh")
 
     ENV["POSSE_SSH_CONFIG"] = Rails.root.join("shell/ssh_config")
-    ENV["PATH"]             = Rails.root.join("shell/bin/ssh") + ":" + ENV["PATH"]
+    path                    = Rails.root.join("shell/bin") + ":" + ENV["PATH"]
     status = Open4.spawn(
-      "(#{cmd} 2>&1)",
+      "(#{cmd} PATH='#{path}' 2>&1)",
       :dir   => dir,
       :out   => output,
       :err   => output,
