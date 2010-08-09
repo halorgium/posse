@@ -14,6 +14,8 @@ class Checkout
     @branch = branch
     @commit = commit
     @dir    = dir
+
+    @uri << ".git" unless @uri[-4..-1] == ".git"
   end
 
   def setup
