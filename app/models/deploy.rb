@@ -59,6 +59,10 @@ Exception
     "failed to upload log: #{exception.class}: #{exception.message}"
   end
 
+  def raw_log_url
+    "#{log_url}.txt"
+  end
+
   def dir
     @dir ||= Rails.root.join("tmp/checkouts/deploy-#{id}-#{Time.now.to_i}")
   end

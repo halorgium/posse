@@ -10,4 +10,4 @@
 #status= @build.status
 
 - if @build.completed?
-  = link_to "Build output", @build.log_url
+  = link_to "Build output", @build.raw_log_url

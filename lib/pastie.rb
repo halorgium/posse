@@ -24,6 +24,10 @@ class Pastie
     end
   end
 
+  def raw_url
+    "#{url}.txt"
+  end
+
   def save
     create! if new_record?
   end
