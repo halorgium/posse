@@ -59,6 +59,10 @@ class Project < ActiveRecord::Base
     "script/ci"
   end
 
+  def deploy_command
+    "script/deploy"
+  end
+
   def to_param
     name
   end
