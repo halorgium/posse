@@ -34,7 +34,7 @@ class Build < ActiveRecord::Base
     checkout.setup
     checkout.run(project.build_command)
 
-    completed(0, checkout.output)
+    completed(0)
   rescue Exception => exception
     Posse.raise_if_unsafe(exception)
 
@@ -45,16 +45,30 @@ Exception
 #{exception.class}: #{exception.message}
 #{exception.backtrace.join("\n")}
     EOT
-    completed(status, checkout.output)
+    completed(status)
   end
 
-  def completed(exit_status, output)
-    update_attributes!(:completed_at => DateTime.now, :exit_status => exit_status, :output => output)
-    Message.say("#minion-", "#{project_name} (#{branch_name}): #{human_status}. #{url}")
+  def completed(exit_status)
+    log_message = upload_log
+
+    update_attributes!(:completed_at => DateTime.now, :exit_status => exit_status)
+    Message.say("#minion-", "#{project_name} (#{branch_name}): #{human_status}. #{url} #{log_message}")
   end
 
   def url
     url_for(self)
+  end
+
+  def upload_log
+    title = "#{id}: Build Log for #{project_name} (#{branch_name}@#{short_identifier})"
+    paste = Pastie.new(:code => checkout.output, :language => :plain_text, :title => title)
+    paste.save
+    update_attributes!(:log_url => paste.url)
+    nil
+  rescue Exception => exception
+    Posse.raise_if_unsafe(exception)
+
+    "failed to upload log: #{exception.class}: #{exception.message}"
   end
 
   def dir
