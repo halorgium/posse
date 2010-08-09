@@ -1,4 +1,7 @@
 class Deploy < ActiveRecord::Base
+  include Rails.application.routes.url_helpers
+  default_url_options[:host] = "posse.halorgium.net"
+
   belongs_to :cluster
   belongs_to :build
 
@@ -32,7 +35,11 @@ Exception
     log_message = upload_log
 
     update_attributes!(:completed_at => DateTime.now, :exit_status => exit_status)
-    request.reply("#{project_name} (#{branch_name}@#{short_identifier}) to #{cluster_name}: Deploy #{status}. #{log_message}")
+    request.reply("#{project_name} (#{branch_name}@#{short_identifier}) to #{cluster_name}: Deploy #{status}. #{url} #{log_message}")
+  end
+
+  def url
+    url_for(self)
   end
 
   def upload_log
@@ -40,7 +47,7 @@ Exception
     paste = Pastie.new(:code => checkout.output, :language => :plain_text, :title => title)
     paste.save
     update_attributes!(:log_url => paste.url)
-    "log @ #{log_url}"
+    nil
   rescue Exception => exception
     Posse.raise_if_unsafe(exception)
 
