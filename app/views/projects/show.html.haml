@@ -9,6 +9,8 @@
 
 - @builds.each do |build|
   %div[build]
+    = time_ago_in_words(build.updated_at)
+    \-
     = link_to build.short_identifier, build
     on
     = link_to build.branch_name, build.branch
@@ -22,7 +24,7 @@
 - @deploys.each do |deploy|
   %div[deploy]
     = link_to time_ago_in_words(deploy.updated_at), deploy
-    -
+    \-
     = link_to deploy.build.short_identifier, deploy.build
     on
     = link_to deploy.build.branch_name, deploy.build.branch
@@ -39,6 +41,8 @@
   %div[branch]
     = link_to branch.name, branch
     == (#{branch.current_status})
+    \-
+    = branch.current_build.short_identifier
 
 %h4 Clusters
 
