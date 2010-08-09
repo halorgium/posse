@@ -3,18 +3,18 @@ class Deploy < ActiveRecord::Base
   belongs_to :build
 
   def run
-    request.reply("#{project_name} (#{branch_name}@#{short_identifier}): Deploy #{status}")
+    request.reply("#{project_name} (#{branch_name}@#{short_identifier}) to #{cluster_name}: Deploy #{status}")
     run!
   end
 
   def run!
     update_attributes!(:started_at => DateTime.now)
-    Rails.logger.info "Deploying #{identifier} on #{branch_name} for #{project_name} to #{cluster.name}"
+    Rails.logger.info "Deploying #{identifier} on #{branch_name} for #{project_name} to #{cluster_name}"
 
     checkout.setup
     checkout.run("#{project.deploy_command} #{cluster.cloud_name.inspect}")
 
-    completed(true, checkout.output)
+    completed(true)
   rescue Exception => exception
     Posse.raise_if_unsafe(exception)
 
@@ -25,12 +25,24 @@ Exception
 #{exception.class}: #{exception.message}
 #{exception.backtrace.join("\n")}
     EOT
-    completed(false, checkout.output)
+    completed(false)
   end
 
-  def completed(status, output)
-    update_attributes!(:completed_at => DateTime.now, :status => status, :output => output)
-    request.reply("#{project_name} (#{branch_name}@#{short_identifier}): Deploy #{status}")
+  def completed(status)
+    log_message = upload_log
+
+    update_attributes!(:completed_at => DateTime.now, :status => status)
+    request.reply("#{project_name} (#{branch_name}@#{short_identifier}) to #{cluster_name}: Deploy #{status}. #{log_message}")
+  end
+
+  def upload_log
+    title = "#{id}: Deploy Log for #{project_name} (#{branch_name}@#{short_identifier}) by #{user}"
+    paste = Pastie.new(:code => checkout.output, :language => :plain_text, :title => title)
+    paste.save
+    update_attributes!(:log_url => paste.url)
+    "log @ #{log_url}"
+  rescue Exception => e
+    "failed to upload log: #{e.class}: #{e.message}"
   end
 
   def dir
@@ -42,7 +54,7 @@ Exception
   end
 
   def request
-    @request ||= Message::DeployRequest.new(cluster.name, build.branch_name, force, user, source)
+    @request ||= Message::DeployRequest.new(cluster_name, build.branch_name, force, user, source)
   end
 
   def completed?
@@ -77,12 +89,20 @@ Exception
     commit.short_identifier
   end
 
+  def cluster_name
+    cluster.name
+  end
+
   def branch_name
     branch.name
   end
 
   def project_name
-    branch.project.name
+    project.name
+  end
+
+  def project
+    branch.project
   end
 
   def branch
