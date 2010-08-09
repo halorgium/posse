@@ -3,13 +3,13 @@ class Deploy < ActiveRecord::Base
   belongs_to :build
 
   def run
-    request.reply("deploying!!")
+    request.reply("#{project_name} (#{branch_name}@#{short_identifier}): Deploy #{status}")
     run!
   end
 
   def run!
     update_attributes!(:started_at => DateTime.now)
-    Rails.logger.info "Deploying #{identifier} on #{build.branch_name} for #{build.project_name} to #{cluster.name}"
+    Rails.logger.info "Deploying #{identifier} on #{branch_name} for #{project_name} to #{cluster.name}"
 
     checkout.setup
     checkout.run("#{project.deploy_command} #{cluster.cloud_name.inspect}")
@@ -43,6 +43,10 @@ Exception
 
   def request
     @request ||= Message::DeployRequest.new(cluster.name, build.branch_name, force, user, source)
+  end
+
+  def completed?
+    completed_at
   end
 
   def status

@@ -17,7 +17,7 @@ class Cluster < ActiveRecord::Base
 
   def deploy(request)
     if allows_user?(request.user)
-      unless current_deploy
+      unless current_deploy && current_deploy.completed?
         request.branch ||= default_branch
 
         if allows_branch?(request.branch)
