@@ -8,3 +8,5 @@ run "ln -nfs #{shared_path}/config/deploy.id_rsa.pub #{latest_release}/config/de
 
 run "[ -f #{shared_path}/tmp/checkouts ] || mkdir -p #{shared_path}/tmp/checkouts"
 run "ln -nfs #{shared_path}/tmp/checkouts #{latest_release}/tmp/checkouts"
+
+run "echo 'IdentityFile #{current_path}/config/deploy.id_rsa' > #{latest_release}/shell/ssh_config"
