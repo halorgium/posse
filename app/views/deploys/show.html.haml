@@ -11,4 +11,5 @@
 
 #status= @deploy.status
 
-= link_to "Deploy output", @deploy.log_url
+- @deploy.completed?
+  = link_to "Deploy output", @deploy.log_url

@@ -9,4 +9,5 @@
 
 #status= @build.status
 
-%pre= @build.output
+- if @build.completed?
+  = link_to "Build output", @build.log_url
