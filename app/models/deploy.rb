@@ -49,10 +49,14 @@ Exception
     completed_at
   end
 
+  def succeeded?
+    status == "succeeded"
+  end
+
   def status
     if started_at
       if completed_at
-        if success?
+        if status?
           "succeeded"
         else
           "failed"
