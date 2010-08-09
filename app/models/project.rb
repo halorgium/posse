@@ -18,6 +18,11 @@ class Project < ActiveRecord::Base
 
   def deploy(request, cluster)
     Rails.logger.info("Deploying #{request.inspect} to #{cluster.inspect}")
+    if branch = branches.where(:name => request.branch).first
+      branch.deploy(request, cluster)
+    else
+      request.reply("No branch #{request.branch} for #{name}")
+    end
   end
 
   def latest_branches
