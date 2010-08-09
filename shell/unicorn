@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+cd ${APP_CURRENT_PATH} && bundle exec unicorn $@
